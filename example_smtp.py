@@ -50,3 +50,7 @@ def send_smtp_mail():
 def error_code(code):
     print(code + " not replied from SMTP-Server")
     sys.exit(1)
+
+
+if __name__ == '__main__':
+    send_smtp_mail()
