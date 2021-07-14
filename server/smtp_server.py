@@ -1,14 +1,19 @@
+from datetime import datetime
 from smtpd import SMTPServer
-
 import asyncore
 
 
 class EmlServer(SMTPServer):
-    
-    def process_message(self, peer, mailfrom, rcpttos, data, *kwargs):
+    no = 0
+
+    def process_message(self, peer, mailfrom, rcpttos, data, mail_options=None, rcpt_options=None):
+        (ip, port) = peer
         print("\n --- A new mail has been recieved --- ")
-        print ("\n --- From: " + mailfrom.decode() + " using client: " + peer.decode() + " ---")
-        print ("\n --- To: " + rcpttos.decode() + " ---")
+        print("\nUsing address " + ip + " and port " + str(port))
+        print("\nFrom: " + mailfrom)
+        print("To following:")
+        print(' '.join(map(str, rcpttos)))
+        print("\n ------------------------------------ ")
         print(data.decode())
 
 
@@ -20,5 +25,5 @@ def run():
         pass
 
 
-if __name__ == 'main':
+if __name__ == '__main__':
     run()
